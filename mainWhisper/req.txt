@@ -1,0 +1,3 @@
+Chocolatey
+ffmpeg
+openai/whisper
