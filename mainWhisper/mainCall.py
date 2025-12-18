@@ -6,6 +6,8 @@ SOURCE = "testFiles\\"
 MODEL = "turbo"
 ALLMODELS = ["tiny", "base", "small", "medium", "large", "turbo"]
 class MainFunction:
+    #future dev: timelapse to run
+    #better version choosing
     def __init__(self, model):
         if model in ALLMODELS:
             print("Model found, using "+model)
@@ -30,16 +32,9 @@ class MainFunction:
             
             wav_file = self.checkHertz(wav_file)
 
-            audio = whisper.load_audio(wav_file)
-            thirtyAudio = whisper.pad_or_trim(audio)
-
-            mel = whisper.log_mel_spectrogram(thirtyAudio, n_mels=self.modules.dims.n_mels).to(self.modules.device)
-
-            _, prob = self.modules.detect_language(mel)
-            print(f"Language detected: {max(prob, key=prob.get)}")
-
             result = self.modules.transcribe(wav_file)
             print("-------------------RESULT-------------------")
+            print(f"Language: {result['language']}")
             print(result["text"])
             returnedOutputs[theFile] = result['text']
         return returnedOutputs
@@ -67,5 +62,5 @@ class MainFunction:
         return fixedFile
 
     
-data = MainFunction("tuijrbo")
+data = MainFunction("medium")
 data.transcribe(["backGround1.wav", "is30sec.wav", "lessthan30sec.wav", "more30sec.wav"])

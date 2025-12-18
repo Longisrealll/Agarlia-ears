@@ -1,3 +1,4 @@
 Chocolatey
 ffmpeg
 openai/whisper
+transformers
